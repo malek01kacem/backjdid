@@ -34,7 +34,7 @@ const registerUser = async (req, res, next) => {
     }
 
     const hashedPassword = await bcrypt.hash(value.password, 10);
-    const defaultImagePath = 'C:/Users/MALEK/Desktop/Backend-main/uploads/userimag/default-image.jpg'; // Specify your default image path here
+    const defaultImagePath = 'https://user-images.githubusercontent.com/11250/39013954-f5091c3a-43e6-11e8-9cac-37cf8e8c8e4e.jpg'; // Specify your default image path here
 
     const newUser = new UserModel({
       firstName: value.firstName,
@@ -143,9 +143,13 @@ const updateUser = async (req, res) => {
 };
 
 const updateUserImage = async (req, res) => {
+  
   try {
     const { _id } = req.xuser;
     const img = req.file.path;
+    console.log(req.file.path);
+    console.log(req.xuser);
+    console.log(req);
     await UserModel.findByIdAndUpdate(_id, {
       profileImg: img,
     });
@@ -156,7 +160,7 @@ const updateUserImage = async (req, res) => {
   } catch (error) {
     return res.status(500).json({
       success: false,
-      message: "Internal server error",
+      message: "Internal server errorsss",
     });
   }
 };

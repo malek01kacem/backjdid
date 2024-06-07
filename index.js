@@ -17,6 +17,8 @@ initializeApp({
   projectId: "gerrap-api"
 });
 //Import Routes
+const feedbackRouter = require("./routes/feedback.routes"); // Import feedbackRouter
+const reservationRoutes = require("./routes/reservation.routes");
 const userRouter = require("./routes/user.routes");
 const fieldRouter = require("./routes/field.routes");
 const eventsRouter = require("./routes/events.routes");
@@ -87,7 +89,7 @@ app.use(requestLogInit);
 app.use(express.json());
 
 // static files.
-app.use("/api/uploads", express.static(path.join(__dirname, "./uploads")));
+app.use("/upload", express.static("./upload"));
 
 //assign Routes
 app.use("/api/users", userRouter);
@@ -95,10 +97,13 @@ app.use("/api/fields", fieldRouter);
 app.use("/api/events", eventsRouter);
 app.use("/api/notifications", notifRouter);
 app.use("/api/messages", messagesRouter);
-/* Should be the last middlewares defined here */
+app.use("/api/reservations", reservationRoutes);
+app.use("/api/feedback", feedbackRouter);
+
+ //Should be the last middlewares defined here */
 //app.use(handleErrorMessage);
-// app.use(logErrors);
-// app.use(logHandler);
+//app.use(logErrors);
+ //app.use(logHandler);
 //app.use(handleSuccessMessage);
 
 // Start the Express server
